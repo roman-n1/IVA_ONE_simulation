@@ -3,6 +3,7 @@ package com.example.ivaonesimulation.features.authorization
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.DelicateDecomposeApi
 import com.arkivanov.decompose.router.stack.ChildStack
+import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.router.stack.replaceAll
@@ -14,9 +15,11 @@ import com.example.ivaonesimulation.features.login.LoginComponent
 import com.example.ivaonesimulation.features.register.RegisterComponent
 import kotlinx.serialization.Serializable
 
-abstract class AbstractAuthorizationComponent(
+class AuthorizationComponent(
     componentContext: ComponentContext,
-) : CompositeComponent<AbstractAuthorizationComponent.Child>(componentContext) {
+    private val tokenCallback: (String) -> Unit,
+    getTokenUseCase: GetTokenUseCase = GetTokenUseCase(haveToken = false),
+) : CompositeComponent, ComponentContext by componentContext {
 
     @Serializable
     sealed class Child {
@@ -29,15 +32,10 @@ abstract class AbstractAuthorizationComponent(
         @Serializable
         data object Register : Child()
     }
-}
 
-class AuthorizationComponent(
-    componentContext: ComponentContext,
-    private val tokenCallback: (String) -> Unit,
-    getTokenUseCase: GetTokenUseCase = GetTokenUseCase(haveToken = false),
-) : AbstractAuthorizationComponent(componentContext) {
+    private val navigation = StackNavigation<Child>()
 
-    override val stack: Value<ChildStack<Child, BaseDecomposeComponent>> =
+    private val stack: Value<ChildStack<Child, BaseDecomposeComponent>> =
         childStack(
             source = navigation,
             serializer = Child.serializer(),
@@ -60,12 +58,15 @@ class AuthorizationComponent(
         child: Child,
         componentContext: ComponentContext
     ): BaseDecomposeComponent = when (child) {
-        is Child.Noop -> NoopComponent(componentContext)
+
+        is Child.Noop -> NoopComponent()
+
         is Child.Login -> LoginComponent(
             componentContext = componentContext,
             tokenCallback = tokenCallback,
             registerClicked = { navigation.push(Child.Register) }
         )
+
         is Child.Register -> RegisterComponent(
             componentContext = componentContext,
             registerFinished = { token ->
@@ -73,4 +74,6 @@ class AuthorizationComponent(
             }
         )
     }
+
+    override fun getChildStack(): Value<ChildStack<*, BaseDecomposeComponent>> = stack
 }

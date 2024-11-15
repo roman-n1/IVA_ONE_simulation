@@ -20,7 +20,7 @@ import com.example.ivaonesimulation.features.contacts.RootContactsComponent
 import com.example.ivaonesimulation.features.profile.ProfileComponent
 
 @Composable
-fun BottomBar(component: AbstractMainScreenWithTabsComponent, modifier: Modifier = Modifier) {
+fun BottomBar(component: MainScreenWithTabsComponent, modifier: Modifier = Modifier) {
     val stack by component.stack.subscribeAsState()
     val activeComponent = stack.active.instance
 

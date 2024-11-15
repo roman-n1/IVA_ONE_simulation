@@ -3,6 +3,7 @@ package com.example.ivaonesimulation.features.chat
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.DelicateDecomposeApi
 import com.arkivanov.decompose.router.stack.ChildStack
+import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.value.Value
@@ -13,7 +14,7 @@ import kotlinx.serialization.Serializable
 
 abstract class AbstractChatComponent(
     componentContext: ComponentContext,
-) : CompositeComponent<AbstractChatComponent.Child>(componentContext) {
+) : CompositeComponent, ComponentContext by componentContext {
 
     @Serializable
     sealed class Child {
@@ -41,7 +42,9 @@ class RootChatComponent(
     componentContext: ComponentContext,
 ) : AbstractChatComponent(componentContext) {
 
-    override val stack: Value<ChildStack<Child, BaseDecomposeComponent>> =
+    private val navigation = StackNavigation<Child>()
+
+    private val stack: Value<ChildStack<Child, BaseDecomposeComponent>> =
         childStack(
             source = navigation,
             serializer = Child.serializer(),
@@ -50,7 +53,10 @@ class RootChatComponent(
             childFactory = ::child,
         )
 
+    override fun getChildStack(): Value<ChildStack<*, BaseDecomposeComponent>> = stack
+
     private var messageToForward: String? = null
+
     private var messageFromChatId: String? = null
 
     @OptIn(DelicateDecomposeApi::class)

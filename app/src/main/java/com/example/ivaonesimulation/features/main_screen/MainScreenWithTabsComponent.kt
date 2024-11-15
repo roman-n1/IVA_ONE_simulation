@@ -23,7 +23,22 @@ abstract class AbstractMainScreenWithTabsComponent(
 ) : BaseDecomposeComponent,
     ComponentContext by componentContext {
 
-    abstract val stack: Value<ChildStack<Child, BaseDecomposeComponent>>
+}
+
+class MainScreenWithTabsComponent(
+    componentContext: ComponentContext,
+) : AbstractMainScreenWithTabsComponent(
+    componentContext,
+) {
+    private val nav = StackNavigation<Child>()
+
+    internal val stack: Value<ChildStack<Child, BaseDecomposeComponent>> =
+        childStack(
+            source = nav,
+            serializer = Child.serializer(),
+            initialConfiguration = Child.ChatFeed,
+            childFactory = ::child,
+        )
 
     @Serializable
     sealed class Child {
@@ -38,36 +53,15 @@ abstract class AbstractMainScreenWithTabsComponent(
         data object Profile : Child()
     }
 
-    abstract fun onChatFeedTabClicked()
-    abstract fun onContactsTabClicked()
-    abstract fun onProfileTabClicked()
-}
-
-class MainScreenWithTabsComponent(
-    componentContext: ComponentContext,
-) : AbstractMainScreenWithTabsComponent(
-    componentContext,
-) {
-
-    private val nav = StackNavigation<Child>()
-
-    override val stack: Value<ChildStack<Child, BaseDecomposeComponent>> =
-        childStack(
-            source = nav,
-            serializer = Child.serializer(),
-            initialConfiguration = Child.ChatFeed,
-            childFactory = ::child,
-        )
-
-    override fun onChatFeedTabClicked() {
+    fun onChatFeedTabClicked() {
         nav.bringToFront(Child.ChatFeed)
     }
 
-    override fun onContactsTabClicked() {
+    fun onContactsTabClicked() {
         nav.bringToFront(Child.Contacts)
     }
 
-    override fun onProfileTabClicked() {
+    fun onProfileTabClicked() {
         nav.bringToFront(Child.Profile)
     }
 

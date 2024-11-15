@@ -8,7 +8,8 @@ class LoginComponent(
     componentContext: ComponentContext,
     private val tokenCallback: (String) -> Unit,
     private val registerClicked: () -> Unit,
-) : ScreenComponent(componentContext) {
+) : ScreenComponent,
+    ComponentContext by componentContext {
 
     @Composable
     override fun Render() {

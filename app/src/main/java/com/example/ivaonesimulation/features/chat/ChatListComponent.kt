@@ -14,7 +14,8 @@ import com.example.ivaonesimulation.decompose.ScreenComponent
 class ChatListComponent(
     componentContext: ComponentContext,
     val onChatClicked: (String) -> Unit
-) : ScreenComponent(componentContext) {
+) : ScreenComponent,
+    ComponentContext by componentContext {
 
     @Composable
     override fun Render() {

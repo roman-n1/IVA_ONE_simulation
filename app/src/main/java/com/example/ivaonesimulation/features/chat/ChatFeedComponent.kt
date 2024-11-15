@@ -19,7 +19,8 @@ class ChatFeedComponent(
     val chatId: String,
     val onForwardClicked: (String, String) -> Unit,
     val forwardMessage: ForwardMessage? = null
-) : ScreenComponent(componentContext) {
+) : ScreenComponent,
+    ComponentContext by componentContext {
 
     @Composable
     override fun Render() {

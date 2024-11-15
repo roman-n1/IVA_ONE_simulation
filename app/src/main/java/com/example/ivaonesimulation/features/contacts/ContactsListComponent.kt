@@ -14,7 +14,8 @@ import com.example.ivaonesimulation.decompose.ScreenComponent
 class ContactsListComponent(
     componentContext: ComponentContext,
     val searchContact: ((String) -> Unit)?
-) : ScreenComponent(componentContext) {
+) : ScreenComponent,
+    ComponentContext by componentContext {
 
     @Composable
     override fun Render() {

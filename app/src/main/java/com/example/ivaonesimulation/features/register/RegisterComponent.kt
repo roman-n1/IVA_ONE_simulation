@@ -8,9 +8,8 @@ class RegisterComponent(
     componentContext: ComponentContext,
     private val registerFinished: (String) -> Unit
 ) :
-    ScreenComponent(
-        componentContext = componentContext,
-    ) {
+    ScreenComponent,
+    ComponentContext by componentContext {
 
     @Composable
     override fun Render() {

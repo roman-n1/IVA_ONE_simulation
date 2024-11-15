@@ -11,9 +11,9 @@ import com.example.ivaonesimulation.decompose.ScreenComponent
 
 class ProfileComponent(
     componentContext: ComponentContext,
-) : ScreenComponent(
-    componentContext = componentContext,
-) {
+) : ScreenComponent,
+    ComponentContext by componentContext {
+
     @Composable
     override fun Render() {
         Box(
@@ -23,5 +23,4 @@ class ProfileComponent(
             Text("Profile")
         }
     }
-
 }

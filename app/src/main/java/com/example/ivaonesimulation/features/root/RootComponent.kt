@@ -2,6 +2,7 @@ package com.example.ivaonesimulation.features.root
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
+import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.replaceAll
 import com.arkivanov.decompose.value.Value
@@ -11,25 +12,14 @@ import com.example.ivaonesimulation.features.authorization.AuthorizationComponen
 import com.example.ivaonesimulation.features.main_screen.MainScreenWithTabsComponent
 import kotlinx.serialization.Serializable
 
-abstract class AbstractRootComponent(
-    componentContext: ComponentContext,
-) : CompositeComponent<AbstractRootComponent.Child>(componentContext) {
-
-    @Serializable
-    sealed class Child {
-        @Serializable
-        data object Authorization : Child()
-
-        @Serializable
-        data object MainScreenWithTabs : Child()
-    }
-}
-
 class RootComponent(
     componentContext: ComponentContext,
-) : AbstractRootComponent(componentContext) {
+) : CompositeComponent,
+    ComponentContext by componentContext {
 
-    override val stack: Value<ChildStack<Child, BaseDecomposeComponent>> =
+    private val navigation = StackNavigation<Child>()
+
+    private val stack: Value<ChildStack<Child, BaseDecomposeComponent>> =
         childStack(
             source = navigation,
             serializer = Child.serializer(),
@@ -42,7 +32,22 @@ class RootComponent(
             childFactory = ::child,
         )
 
-    private fun child(child: Child, childComponentContext: ComponentContext): BaseDecomposeComponent =
+    override fun getChildStack(): Value<ChildStack<*, BaseDecomposeComponent>> = stack
+
+    @Serializable
+    sealed class Child {
+
+        @Serializable
+        data object Authorization : Child()
+
+        @Serializable
+        data object MainScreenWithTabs : Child()
+    }
+
+    private fun child(
+        child: Child,
+        childComponentContext: ComponentContext
+    ): BaseDecomposeComponent =
         when (child) {
             is Child.Authorization -> AuthorizationComponent(
                 componentContext = childComponentContext,
