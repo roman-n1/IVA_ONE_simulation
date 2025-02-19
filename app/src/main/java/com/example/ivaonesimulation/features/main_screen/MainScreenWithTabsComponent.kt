@@ -14,7 +14,7 @@ import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.value.Value
 import com.example.ivaonesimulation.features.chat.RootChatComponent
 import com.example.ivaonesimulation.features.contacts.RootContactsComponent
-import com.example.ivaonesimulation.features.profile.ProfileComponent
+import com.example.ivaonesimulation.features.email.RootEmailComponent
 import kotlinx.serialization.Serializable
 import su.ivcs.one.navigation.BaseDecomposeComponent
 
@@ -82,6 +82,6 @@ class MainScreenWithTabsComponent(
         when (child) {
             Child.ChatFeed -> RootChatComponent(componentContext)
             Child.Contacts -> RootContactsComponent(componentContext)
-            Child.Profile -> ProfileComponent(componentContext)
+            Child.Profile -> RootEmailComponent(componentContext)
         }
 }

@@ -1,4 +1,4 @@
-package com.example.ivaonesimulation.features.profile
+package com.example.ivaonesimulation.features.email
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.ComponentContext
 import su.ivcs.one.navigation.ScreenComponent
 
-class ProfileComponent(
+class RootEmailComponent(
     componentContext: ComponentContext,
 ) : ScreenComponent,
     ComponentContext by componentContext {
@@ -20,7 +20,7 @@ class ProfileComponent(
             contentAlignment = Alignment.Center,
             modifier = Modifier.fillMaxSize()
         ) {
-            Text("Profile")
+            Text("Email")
         }
     }
 }

@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Face
+import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.example.ivaonesimulation.features.chat.RootChatComponent
 import com.example.ivaonesimulation.features.contacts.RootContactsComponent
-import com.example.ivaonesimulation.features.profile.ProfileComponent
+import com.example.ivaonesimulation.features.email.RootEmailComponent
 
 @Composable
 fun BottomBar(component: MainScreenWithTabsComponent, modifier: Modifier = Modifier) {
@@ -37,7 +37,7 @@ fun BottomBar(component: MainScreenWithTabsComponent, modifier: Modifier = Modif
                 },
                 icon = {
                     Icon(
-                        imageVector = Icons.Default.Email,
+                        imageVector = Icons.Default.Send,
                         contentDescription = "Chat Feed"
                     )
                 },
@@ -61,14 +61,14 @@ fun BottomBar(component: MainScreenWithTabsComponent, modifier: Modifier = Modif
                 }
             )
             NavigationBarItem(
-                selected = activeComponent is ProfileComponent,
+                selected = activeComponent is RootEmailComponent,
                 label = {
                     Text("Profile")
                 },
                 icon = {
                     Icon(
-                        imageVector = Icons.Default.Face,
-                        contentDescription = "Profile"
+                        imageVector = Icons.Default.Email,
+                        contentDescription = "Email"
                     )
                 },
                 onClick = {
