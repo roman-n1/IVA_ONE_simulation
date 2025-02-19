@@ -1,3 +1,3 @@
-package com.example.ivaonesimulation.decompose
+package su.ivcs.one.navigation
 
 interface ScreenComponent : BaseDecomposeComponent

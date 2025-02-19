@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.ComponentContext
-import com.example.ivaonesimulation.decompose.ScreenComponent
+import su.ivcs.one.navigation.ScreenComponent
 
 class ProfileComponent(
     componentContext: ComponentContext,

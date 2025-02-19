@@ -1,4 +1,4 @@
-package com.example.ivaonesimulation.decompose
+package su.ivcs.one.navigation
 
 import androidx.compose.runtime.Composable
 

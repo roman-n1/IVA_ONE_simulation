@@ -2,7 +2,7 @@ package com.example.ivaonesimulation.features.register
 
 import androidx.compose.runtime.Composable
 import com.arkivanov.decompose.ComponentContext
-import com.example.ivaonesimulation.decompose.ScreenComponent
+import su.ivcs.one.navigation.ScreenComponent
 
 class RegisterComponent(
     componentContext: ComponentContext,

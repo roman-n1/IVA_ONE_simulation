@@ -7,10 +7,9 @@ import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.value.Value
-import com.example.ivaonesimulation.decompose.BaseDecomposeComponent
-import com.example.ivaonesimulation.decompose.CompositeComponent
 import com.example.ivaonesimulation.features.contacts.RootContactsComponent
 import kotlinx.serialization.Serializable
+import su.ivcs.one.navigation.CompositeComponent
 
 abstract class AbstractChatComponent(
     componentContext: ComponentContext,
@@ -44,7 +43,7 @@ class RootChatComponent(
 
     private val navigation = StackNavigation<Child>()
 
-    private val stack: Value<ChildStack<Child, BaseDecomposeComponent>> =
+    private val stack: Value<ChildStack<Child, su.ivcs.one.navigation.BaseDecomposeComponent>> =
         childStack(
             source = navigation,
             serializer = Child.serializer(),
@@ -53,7 +52,7 @@ class RootChatComponent(
             childFactory = ::child,
         )
 
-    override fun getChildStack(): Value<ChildStack<*, BaseDecomposeComponent>> = stack
+    override fun getChildStack(): Value<ChildStack<*, su.ivcs.one.navigation.BaseDecomposeComponent>> = stack
 
     private var messageToForward: String? = null
 
@@ -63,7 +62,7 @@ class RootChatComponent(
     private fun child(
         child: Child,
         componentContext: ComponentContext
-    ): BaseDecomposeComponent = when (child) {
+    ): su.ivcs.one.navigation.BaseDecomposeComponent = when (child) {
         is Child.ChatList -> ChatListComponent(
             componentContext = componentContext,
             onChatClicked = { id ->

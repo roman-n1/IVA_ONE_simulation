@@ -43,6 +43,16 @@ android {
 }
 
 dependencies {
+//    // Compose
+//    implementation(platform(libs.androidx.compose.bom))
+//    implementation(libs.versions.compose.material)
+//    implementation(libs.versions.compose.ui.core)
+//
+//    // Architecture
+//    implementation(libs.bundles.decompose)
+
+
+    implementation(project(":navigation"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

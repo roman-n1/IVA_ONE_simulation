@@ -5,20 +5,17 @@ import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.value.Value
-import com.example.ivaonesimulation.decompose.BaseDecomposeComponent
-import com.example.ivaonesimulation.decompose.CompositeComponent
-import com.example.ivaonesimulation.decompose.NoopComponent
 import kotlinx.serialization.Serializable
 
 class RootContactsComponent(
     componentContext: ComponentContext,
     val searchContact: ((String) -> Unit)? = null,
-) : CompositeComponent,
+) : su.ivcs.one.navigation.CompositeComponent,
     ComponentContext by componentContext {
 
     private val navigation = StackNavigation<Child>()
 
-    private val stack: Value<ChildStack<Child, BaseDecomposeComponent>> =
+    private val stack: Value<ChildStack<Child, su.ivcs.one.navigation.BaseDecomposeComponent>> =
         childStack(
             source = navigation,
             serializer = Child.serializer(),
@@ -27,7 +24,7 @@ class RootContactsComponent(
             childFactory = ::child,
         )
 
-    override fun getChildStack(): Value<ChildStack<*, BaseDecomposeComponent>> = stack
+    override fun getChildStack(): Value<ChildStack<*, su.ivcs.one.navigation.BaseDecomposeComponent>> = stack
 
     @Serializable
     sealed class Child {
@@ -40,8 +37,8 @@ class RootContactsComponent(
     private fun child(
         child: Child,
         componentContext: ComponentContext
-    ): BaseDecomposeComponent = when (child) {
-        is Child.Noop -> NoopComponent()
+    ): su.ivcs.one.navigation.BaseDecomposeComponent = when (child) {
+        is Child.Noop -> su.ivcs.one.navigation.NoopComponent()
         is Child.ContactsList -> ContactsListComponent(
             componentContext = componentContext,
             searchContact = searchContact,

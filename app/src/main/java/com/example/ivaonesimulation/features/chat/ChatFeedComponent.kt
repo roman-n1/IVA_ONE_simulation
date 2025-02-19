@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.ComponentContext
-import com.example.ivaonesimulation.decompose.ScreenComponent
+import su.ivcs.one.navigation.ScreenComponent
 
 class ChatFeedComponent(
     componentContext: ComponentContext,
