@@ -15,7 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
-import com.example.ivaonesimulation.features.chat.ChatListComponent
+import com.example.ivaonesimulation.features.chat.RootChatComponent
 import com.example.ivaonesimulation.features.contacts.RootContactsComponent
 import com.example.ivaonesimulation.features.profile.ProfileComponent
 
@@ -31,7 +31,7 @@ fun BottomBar(component: MainScreenWithTabsComponent, modifier: Modifier = Modif
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             NavigationBarItem(
-                selected = activeComponent is ChatListComponent,
+                selected = activeComponent is RootChatComponent,
                 label = {
                     Text("Chat Feed")
                 },

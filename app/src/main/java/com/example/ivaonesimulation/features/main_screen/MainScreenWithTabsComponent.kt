@@ -12,27 +12,19 @@ import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.bringToFront
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.value.Value
-import su.ivcs.one.navigation.BaseDecomposeComponent
 import com.example.ivaonesimulation.features.chat.RootChatComponent
 import com.example.ivaonesimulation.features.contacts.RootContactsComponent
 import com.example.ivaonesimulation.features.profile.ProfileComponent
 import kotlinx.serialization.Serializable
-
-abstract class AbstractMainScreenWithTabsComponent(
-    protected val componentContext: ComponentContext,
-) : BaseDecomposeComponent,
-    ComponentContext by componentContext {
-
-}
+import su.ivcs.one.navigation.BaseDecomposeComponent
 
 class MainScreenWithTabsComponent(
     componentContext: ComponentContext,
-) : AbstractMainScreenWithTabsComponent(
-    componentContext,
-) {
+) : BaseDecomposeComponent,
+    ComponentContext by componentContext {
     private val nav = StackNavigation<Child>()
 
-    internal val stack: Value<ChildStack<Child, su.ivcs.one.navigation.BaseDecomposeComponent>> =
+    internal val stack: Value<ChildStack<Child, BaseDecomposeComponent>> =
         childStack(
             source = nav,
             serializer = Child.serializer(),
@@ -86,7 +78,7 @@ class MainScreenWithTabsComponent(
     private fun child(
         child: Child,
         componentContext: ComponentContext
-    ): su.ivcs.one.navigation.BaseDecomposeComponent =
+    ): BaseDecomposeComponent =
         when (child) {
             Child.ChatFeed -> RootChatComponent(componentContext)
             Child.Contacts -> RootContactsComponent(componentContext)
