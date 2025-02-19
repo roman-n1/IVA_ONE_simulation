@@ -9,6 +9,7 @@ import com.arkivanov.decompose.value.Value
 import com.example.ivaonesimulation.features.authorization.AuthorizationComponent
 import com.example.ivaonesimulation.features.main_screen.MainScreenWithTabsComponent
 import kotlinx.serialization.Serializable
+import su.ivcs.one.navigation.BaseDecomposeComponent
 import su.ivcs.one.navigation.CompositeComponent
 
 class RootComponent(
@@ -18,7 +19,7 @@ class RootComponent(
 
     private val navigation = StackNavigation<Child>()
 
-    private val stack: Value<ChildStack<Child, su.ivcs.one.navigation.BaseDecomposeComponent>> =
+    private val stack: Value<ChildStack<Child, BaseDecomposeComponent>> =
         childStack(
             source = navigation,
             serializer = Child.serializer(),
@@ -28,10 +29,10 @@ class RootComponent(
                 )
             },
             handleBackButton = true,
-            childFactory = ::child,
+            childFactory = ::createChild,
         )
 
-    override fun getChildStack(): Value<ChildStack<*, su.ivcs.one.navigation.BaseDecomposeComponent>> = stack
+    override fun getChildStack(): Value<ChildStack<*, BaseDecomposeComponent>> = stack
 
     @Serializable
     sealed class Child {
@@ -43,10 +44,10 @@ class RootComponent(
         data object MainScreenWithTabs : Child()
     }
 
-    private fun child(
+    private fun createChild(
         child: Child,
         childComponentContext: ComponentContext
-    ): su.ivcs.one.navigation.BaseDecomposeComponent =
+    ): BaseDecomposeComponent =
         when (child) {
             is Child.Authorization -> AuthorizationComponent(
                 componentContext = childComponentContext,

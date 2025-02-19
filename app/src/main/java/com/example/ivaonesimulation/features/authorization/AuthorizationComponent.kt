@@ -41,7 +41,7 @@ class AuthorizationComponent(
             serializer = Child.serializer(),
             initialConfiguration = Child.Noop,
             handleBackButton = true,
-            childFactory = ::child,
+            childFactory = ::createChild,
         )
 
     init {
@@ -54,7 +54,7 @@ class AuthorizationComponent(
     }
 
     @OptIn(DelicateDecomposeApi::class)
-    private fun child(
+    private fun createChild(
         child: Child,
         componentContext: ComponentContext
     ): su.ivcs.one.navigation.BaseDecomposeComponent = when (child) {

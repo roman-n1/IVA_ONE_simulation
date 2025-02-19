@@ -21,7 +21,7 @@ class RootContactsComponent(
             serializer = Child.serializer(),
             initialConfiguration = Child.ContactsList,
             handleBackButton = true,
-            childFactory = ::child,
+            childFactory = ::createChild,
         )
 
     override fun getChildStack(): Value<ChildStack<*, su.ivcs.one.navigation.BaseDecomposeComponent>> = stack
@@ -34,7 +34,7 @@ class RootContactsComponent(
         data object ContactsList : Child()
     }
 
-    private fun child(
+    private fun createChild(
         child: Child,
         componentContext: ComponentContext
     ): su.ivcs.one.navigation.BaseDecomposeComponent = when (child) {

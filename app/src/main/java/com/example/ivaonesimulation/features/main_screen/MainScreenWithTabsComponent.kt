@@ -14,7 +14,7 @@ import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.value.Value
 import com.example.ivaonesimulation.features.chat.RootChatComponent
 import com.example.ivaonesimulation.features.contacts.RootContactsComponent
-import com.example.ivaonesimulation.features.email.RootEmailComponent
+import com.example.ivaonesimulation.features.email.root.RootEmailComponent
 import kotlinx.serialization.Serializable
 import su.ivcs.one.navigation.BaseDecomposeComponent
 
@@ -29,7 +29,7 @@ class MainScreenWithTabsComponent(
             source = nav,
             serializer = Child.serializer(),
             initialConfiguration = Child.ChatFeed,
-            childFactory = ::child,
+            childFactory = ::createChild,
         )
 
     @Serializable
@@ -42,7 +42,7 @@ class MainScreenWithTabsComponent(
         data object Contacts : Child()
 
         @Serializable
-        data object Profile : Child()
+        data object Email : Child()
     }
 
     fun onChatFeedTabClicked() {
@@ -53,8 +53,8 @@ class MainScreenWithTabsComponent(
         nav.bringToFront(Child.Contacts)
     }
 
-    fun onProfileTabClicked() {
-        nav.bringToFront(Child.Profile)
+    fun onEmailTabClicked() {
+        nav.bringToFront(Child.Email)
     }
 
     @Composable
@@ -75,13 +75,13 @@ class MainScreenWithTabsComponent(
         }
     }
 
-    private fun child(
+    private fun createChild(
         child: Child,
         componentContext: ComponentContext
     ): BaseDecomposeComponent =
         when (child) {
             Child.ChatFeed -> RootChatComponent(componentContext)
             Child.Contacts -> RootContactsComponent(componentContext)
-            Child.Profile -> RootEmailComponent(componentContext)
+            Child.Email -> RootEmailComponent(componentContext)
         }
 }

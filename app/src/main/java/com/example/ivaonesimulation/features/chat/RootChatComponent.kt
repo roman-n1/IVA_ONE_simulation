@@ -49,7 +49,7 @@ class RootChatComponent(
             serializer = Child.serializer(),
             initialConfiguration = Child.ChatList,
             handleBackButton = true,
-            childFactory = ::child,
+            childFactory = ::createChild,
         )
 
     override fun getChildStack(): Value<ChildStack<*, su.ivcs.one.navigation.BaseDecomposeComponent>> = stack
@@ -59,7 +59,7 @@ class RootChatComponent(
     private var messageFromChatId: String? = null
 
     @OptIn(DelicateDecomposeApi::class)
-    private fun child(
+    private fun createChild(
         child: Child,
         componentContext: ComponentContext
     ): su.ivcs.one.navigation.BaseDecomposeComponent = when (child) {
