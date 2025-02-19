@@ -22,6 +22,7 @@ class RootComponent(
     private val stack: Value<ChildStack<Child, BaseDecomposeComponent>> =
         childStack(
             source = navigation,
+            key = RootComponent::class.simpleName.orEmpty(),
             serializer = Child.serializer(),
             initialStack = {
                 listOf<Child>(

@@ -1,4 +1,4 @@
-package com.example.ivaonesimulation.features.email.list
+package com.example.ivaonesimulation.features.email.new_email
 
 import androidx.compose.runtime.Composable
 import com.arkivanov.decompose.ComponentContext
@@ -9,7 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.FlowCollector
 import su.ivcs.one.navigation.ScreenComponent
 
-class EmailListComponent(
+class NewEmailComponent(
     componentContext: ComponentContext,
     private val newsFlowCollector: FlowCollector<News>,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
@@ -21,24 +21,26 @@ class EmailListComponent(
 
     fun onAction(action: Action) = coroutineScopeInstance {
         when (action) {
-            is Action.NewEmailButtonClicked -> newsFlowCollector.emit(
-                News.NewEmailButtonClicked
-            )
+            is Action.SelectContactsClicked -> {
+                newsFlowCollector.emit(
+                    News.SelectContactsClicked
+                )
+            }
         }
     }
 
     @Composable
     override fun Render() {
-        EmailListContent(
+        NewEmailContent(
             component = this
         )
     }
 
     sealed interface Action {
-        object NewEmailButtonClicked : Action
+        object SelectContactsClicked : Action
     }
 
     sealed interface News {
-        object NewEmailButtonClicked : News
+        object SelectContactsClicked : News
     }
 }

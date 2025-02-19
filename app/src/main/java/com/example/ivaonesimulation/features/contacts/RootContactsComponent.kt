@@ -18,6 +18,7 @@ class RootContactsComponent(
     private val stack: Value<ChildStack<Child, su.ivcs.one.navigation.BaseDecomposeComponent>> =
         childStack(
             source = navigation,
+            key = RootContactsComponent::class.simpleName.orEmpty(),
             serializer = Child.serializer(),
             initialConfiguration = Child.ContactsList,
             handleBackButton = true,

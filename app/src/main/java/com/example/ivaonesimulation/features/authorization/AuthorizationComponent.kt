@@ -38,6 +38,7 @@ class AuthorizationComponent(
     private val stack: Value<ChildStack<Child, su.ivcs.one.navigation.BaseDecomposeComponent>> =
         childStack(
             source = navigation,
+            key = AuthorizationComponent::class.simpleName.orEmpty(),
             serializer = Child.serializer(),
             initialConfiguration = Child.Noop,
             handleBackButton = true,

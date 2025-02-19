@@ -1,4 +1,4 @@
-package com.example.ivaonesimulation.features.email.root
+package com.example.ivaonesimulation.features.email.root_new_email
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.DelicateDecomposeApi
@@ -9,8 +9,7 @@ import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.instancekeeper.getOrCreate
 import com.example.ivaonesimulation.ComponentRetainedInstance
-import com.example.ivaonesimulation.features.email.list.EmailListComponent
-import com.example.ivaonesimulation.features.email.root_new_email.RootNewEmailComponent
+import com.example.ivaonesimulation.features.email.new_email.NewEmailComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -18,7 +17,7 @@ import kotlinx.serialization.Serializable
 import su.ivcs.one.navigation.BaseDecomposeComponent
 import su.ivcs.one.navigation.CompositeComponent
 
-class RootEmailComponent(
+class RootNewEmailComponent(
     componentContext: ComponentContext,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) : CompositeComponent,
@@ -27,30 +26,30 @@ class RootEmailComponent(
     private val coroutineScopeInstance =
         instanceKeeper.getOrCreate { ComponentRetainedInstance(ioDispatcher) }
 
-    private val emailListComponentNewsFlow = MutableSharedFlow<EmailListComponent.News>()
+    private val newEmailComponentNewsFlow = MutableSharedFlow<NewEmailComponent.News>()
 
     private val navigation = StackNavigation<ChildConfiguration>()
 
     private val stack: Value<ChildStack<ChildConfiguration, BaseDecomposeComponent>> =
         childStack(
             source = navigation,
-            key = RootEmailComponent::class.simpleName.orEmpty(),
+            key = RootNewEmailComponent::class.simpleName.orEmpty(),
             serializer = ChildConfiguration.serializer(),
-            initialConfiguration = ChildConfiguration.EmailList,
+            initialConfiguration = ChildConfiguration.NewEmail,
             handleBackButton = true,
             childFactory = ::createChild,
         )
 
     init {
-        subscribeOnEmailListComponentNews()
+        subscribeOnNewEmailComponentNews()
     }
 
     @OptIn(DelicateDecomposeApi::class)
-    private fun subscribeOnEmailListComponentNews() = coroutineScopeInstance {
-        emailListComponentNewsFlow.collect { news ->
+    private fun subscribeOnNewEmailComponentNews() = coroutineScopeInstance {
+        newEmailComponentNewsFlow.collect { news ->
             when (news) {
-                is EmailListComponent.News.NewEmailButtonClicked -> {
-                    navigation.push(ChildConfiguration.NewEmail)
+                is NewEmailComponent.News.SelectContactsClicked -> {
+                    navigation.push(ChildConfiguration.SelectContacts)
                 }
             }
         }
@@ -59,31 +58,40 @@ class RootEmailComponent(
     private fun createChild(
         childConfiguration: ChildConfiguration,
         componentContext: ComponentContext
-    ): BaseDecomposeComponent = when (childConfiguration) {
-        is ChildConfiguration.EmailList -> {
-            EmailListComponent(
+    ): BaseDecomposeComponent =
+        when(childConfiguration) {
+            ChildConfiguration.NewEmail -> NewEmailComponent(
                 componentContext = componentContext,
-                newsFlowCollector = emailListComponentNewsFlow,
+                newsFlowCollector = newEmailComponentNewsFlow
             )
+
+            ChildConfiguration.SelectContacts -> TODO()
         }
 
-        is ChildConfiguration.NewEmail -> {
-            RootNewEmailComponent(
-                componentContext = componentContext
-            )
+    @OptIn(DelicateDecomposeApi::class)
+    fun onAction(action: Action) = coroutineScopeInstance {
+        when (action) {
+            is Action.SelectContacts -> {
+                navigation.push(
+                    ChildConfiguration.SelectContacts
+                )
+            }
         }
     }
 
     @Serializable
     sealed interface ChildConfiguration {
         @Serializable
-        object EmailList : ChildConfiguration
+        object NewEmail : ChildConfiguration
 
         @Serializable
-        object NewEmail : ChildConfiguration
+        object SelectContacts : ChildConfiguration
+
+    }
+
+    sealed interface Action {
+        object SelectContacts : Action
     }
 
     override fun getChildStack(): Value<ChildStack<*, BaseDecomposeComponent>> = stack
-
-
 }
