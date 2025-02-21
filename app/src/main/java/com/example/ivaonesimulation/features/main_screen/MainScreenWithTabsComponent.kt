@@ -16,15 +16,15 @@ import com.example.ivaonesimulation.features.chat.RootChatComponent
 import com.example.ivaonesimulation.features.contacts.RootContactsComponent
 import com.example.ivaonesimulation.features.email.root.RootEmailComponent
 import kotlinx.serialization.Serializable
-import su.ivcs.one.navigation.BaseDecomposeComponent
+import su.ivcs.one.navigation.BaseComponent
 
 class MainScreenWithTabsComponent(
     componentContext: ComponentContext,
-) : BaseDecomposeComponent,
+) : BaseComponent,
     ComponentContext by componentContext {
     private val nav = StackNavigation<Child>()
 
-    internal val stack: Value<ChildStack<Child, BaseDecomposeComponent>> =
+    internal val stack: Value<ChildStack<Child, BaseComponent>> =
         childStack(
             source = nav,
             serializer = Child.serializer(),
@@ -78,7 +78,7 @@ class MainScreenWithTabsComponent(
     private fun createChild(
         child: Child,
         componentContext: ComponentContext
-    ): BaseDecomposeComponent =
+    ): BaseComponent =
         when (child) {
             Child.ChatFeed -> RootChatComponent(componentContext)
             Child.Contacts -> RootContactsComponent(componentContext)

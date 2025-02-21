@@ -35,7 +35,7 @@ class AuthorizationComponent(
 
     private val navigation = StackNavigation<Child>()
 
-    private val stack: Value<ChildStack<Child, su.ivcs.one.navigation.BaseDecomposeComponent>> =
+    private val stack: Value<ChildStack<Child, su.ivcs.one.navigation.BaseComponent>> =
         childStack(
             source = navigation,
             key = AuthorizationComponent::class.simpleName.orEmpty(),
@@ -58,7 +58,7 @@ class AuthorizationComponent(
     private fun createChild(
         child: Child,
         componentContext: ComponentContext
-    ): su.ivcs.one.navigation.BaseDecomposeComponent = when (child) {
+    ): su.ivcs.one.navigation.BaseComponent = when (child) {
 
         is Child.Noop -> NoopComponent()
 
@@ -76,6 +76,6 @@ class AuthorizationComponent(
         )
     }
 
-    override fun getChildStack(): Value<ChildStack<*, su.ivcs.one.navigation.BaseDecomposeComponent>> =
+    override fun getChildStack(): Value<ChildStack<*, su.ivcs.one.navigation.BaseComponent>> =
         stack
 }

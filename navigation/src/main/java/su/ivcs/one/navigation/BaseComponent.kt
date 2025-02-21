@@ -2,7 +2,7 @@ package su.ivcs.one.navigation
 
 import androidx.compose.runtime.Composable
 
-interface BaseDecomposeComponent {
+interface BaseComponent {
     @Composable
     fun Render()
 }

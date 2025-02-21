@@ -43,7 +43,7 @@ class RootChatComponent(
 
     private val navigation = StackNavigation<Child>()
 
-    private val stack: Value<ChildStack<Child, su.ivcs.one.navigation.BaseDecomposeComponent>> =
+    private val stack: Value<ChildStack<Child, su.ivcs.one.navigation.BaseComponent>> =
         childStack(
             source = navigation,
             key = RootChatComponent::class.simpleName.orEmpty(),
@@ -53,7 +53,7 @@ class RootChatComponent(
             childFactory = ::createChild,
         )
 
-    override fun getChildStack(): Value<ChildStack<*, su.ivcs.one.navigation.BaseDecomposeComponent>> = stack
+    override fun getChildStack(): Value<ChildStack<*, su.ivcs.one.navigation.BaseComponent>> = stack
 
     private var messageToForward: String? = null
 
@@ -63,7 +63,7 @@ class RootChatComponent(
     private fun createChild(
         child: Child,
         componentContext: ComponentContext
-    ): su.ivcs.one.navigation.BaseDecomposeComponent = when (child) {
+    ): su.ivcs.one.navigation.BaseComponent = when (child) {
         is Child.ChatList -> ChatListComponent(
             componentContext = componentContext,
             onChatClicked = { id ->
@@ -83,15 +83,6 @@ class RootChatComponent(
 
         is Child.SelectContact -> RootContactsComponent(
             componentContext = componentContext,
-            searchContact = { personId ->
-                navigation.push(
-                    Child.ForwardMessage(
-                        message = messageToForward.orEmpty(),
-                        fromChatId = messageFromChatId.orEmpty(),
-                        toPersonId = personId,
-                    )
-                )
-            }
         )
 
         is Child.ForwardMessage -> ChatFeedComponent(

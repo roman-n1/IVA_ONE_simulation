@@ -14,7 +14,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.serialization.Serializable
-import su.ivcs.one.navigation.BaseDecomposeComponent
+import su.ivcs.one.navigation.BaseComponent
 import su.ivcs.one.navigation.CompositeComponent
 
 class RootNewEmailComponent(
@@ -30,7 +30,7 @@ class RootNewEmailComponent(
 
     private val navigation = StackNavigation<ChildConfiguration>()
 
-    private val stack: Value<ChildStack<ChildConfiguration, BaseDecomposeComponent>> =
+    private val stack: Value<ChildStack<ChildConfiguration, BaseComponent>> =
         childStack(
             source = navigation,
             key = RootNewEmailComponent::class.simpleName.orEmpty(),
@@ -58,7 +58,7 @@ class RootNewEmailComponent(
     private fun createChild(
         childConfiguration: ChildConfiguration,
         componentContext: ComponentContext
-    ): BaseDecomposeComponent =
+    ): BaseComponent =
         when(childConfiguration) {
             ChildConfiguration.NewEmail -> NewEmailComponent(
                 componentContext = componentContext,
@@ -93,5 +93,5 @@ class RootNewEmailComponent(
         object SelectContacts : Action
     }
 
-    override fun getChildStack(): Value<ChildStack<*, BaseDecomposeComponent>> = stack
+    override fun getChildStack(): Value<ChildStack<*, BaseComponent>> = stack
 }

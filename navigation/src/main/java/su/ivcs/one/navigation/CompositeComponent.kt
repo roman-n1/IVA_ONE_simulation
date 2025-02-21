@@ -7,9 +7,9 @@ import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.value.Value
 
-interface CompositeComponent : BaseDecomposeComponent {
+interface CompositeComponent : BaseComponent {
 
-    fun getChildStack(): Value<ChildStack<*, BaseDecomposeComponent>>
+    fun getChildStack(): Value<ChildStack<*, BaseComponent>>
 
     @Composable
     override fun Render() {
