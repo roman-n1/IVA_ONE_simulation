@@ -1,14 +1,16 @@
 package com.example.ivaonesimulation.features.contacts.common.toolbar
 
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.Color
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.instancekeeper.getOrCreate
 import com.example.ivaonesimulation.ComponentRetainedInstance
@@ -47,8 +49,12 @@ class SelectToolbarComponent(
     @Composable
     override fun Render() {
         val count by remember { derivedStateOf { selectedItemsCount } }
-        TopAppBar(
-            title = { Text("Контактов выбрано: $count") }
+        CenterAlignedTopAppBar(
+            title = { Text(text = "Контактов выбрано: $count", color = Color.White) },
+            colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                containerColor = Color.DarkGray,
+                titleContentColor = Color.White
+            )
         )
     }
 

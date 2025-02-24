@@ -28,8 +28,10 @@ class ContactListComponent(
     private val coroutineScopeInstance =
         instanceKeeper.getOrCreate { ComponentRetainedInstance(ioDispatcher) }
 
-    private val contactsListPartComponentNewsFlow = MutableSharedFlow<ContactsListPartComponent.News>()
-    private val contactsListPartComponentMessageFlow = MutableSharedFlow<ContactsListPartComponent.Message>()
+    private val contactsListPartComponentNewsFlow =
+        MutableSharedFlow<ContactsListPartComponent.News>()
+    private val contactsListPartComponentMessageFlow =
+        MutableSharedFlow<ContactsListPartComponent.Message>()
     private val selectToolbarMessageFlow = MutableSharedFlow<SelectToolbarComponent.Message>()
 
     private val toolbarNavigation = SlotNavigation<ToolbarConfig>()
@@ -70,25 +72,34 @@ class ContactListComponent(
     private val selectedContacts = mutableListOf<Contact>()
 
     private suspend fun selectContact(contact: Contact) {
-        isSelectMode = true
-        toolbarNavigation.navigate(
-            transformer = { if (isSelectMode) ToolbarConfig.SelectMode else ToolbarConfig.Default },
-            onComplete = { _, _ -> /*do nothing*/ },
-        )
-        contactsListPartComponentMessageFlow.emit(
-            ContactsListPartComponent.Message.SelectContact(
-                contact
-            )
-        )
         if (selectedContacts.contains(contact)) {
             selectedContacts.remove(contact)
+            contactsListPartComponentMessageFlow.emit(
+                ContactsListPartComponent.Message.UnselectContact(
+                    contact
+                )
+            )
         } else {
             selectedContacts.add(contact)
-        }
-        selectToolbarMessageFlow.emit(
-            SelectToolbarComponent.Message.SelectedItemsCountChanged(
-                count = selectedContacts.size
+            contactsListPartComponentMessageFlow.emit(
+                ContactsListPartComponent.Message.SelectContact(
+                    contact
+                )
             )
+        }
+
+        isSelectMode = selectedContacts.isNotEmpty()
+        toolbarNavigation.navigate(
+            transformer = { if (isSelectMode) ToolbarConfig.SelectMode else ToolbarConfig.Default },
+            onComplete = { _, _ ->
+                coroutineScopeInstance {
+                    selectToolbarMessageFlow.emit(
+                        SelectToolbarComponent.Message.SelectedItemsCountChanged(
+                            count = selectedContacts.size
+                        )
+                    )
+                }
+            },
         )
     }
 
