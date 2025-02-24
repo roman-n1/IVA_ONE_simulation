@@ -55,6 +55,10 @@ dependencies {
     implementation(project(":core:navigation"))
     implementation(project(":core:models"))
 
+    implementation(project(":feature:contacts"))
+    implementation(project(":feature:email"))
+
+    
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -66,6 +70,7 @@ dependencies {
 
     implementation(libs.decompose)
     implementation(libs.decompose.extensions.compose)
+    implementation(libs.essenty.lifecycle.coroutines)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

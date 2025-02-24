@@ -7,7 +7,7 @@ import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.value.Value
-import com.example.ivaonesimulation.features.contacts.RootContactsComponent
+import com.example.contacts.RootContactsComponent
 import kotlinx.serialization.Serializable
 import su.ivcs.one.navigation.CompositeComponent
 
@@ -81,7 +81,7 @@ class RootChatComponent(
             },
         )
 
-        is Child.SelectContact -> RootContactsComponent(
+        is Child.SelectContact -> com.example.contacts.RootContactsComponent(
             componentContext = componentContext,
         )
 

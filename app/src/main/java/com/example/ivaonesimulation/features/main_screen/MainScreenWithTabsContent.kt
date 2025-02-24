@@ -16,8 +16,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.example.ivaonesimulation.features.chat.RootChatComponent
-import com.example.ivaonesimulation.features.contacts.RootContactsComponent
-import com.example.ivaonesimulation.features.email.root.RootEmailComponent
+import com.example.contacts.RootContactsComponent
+import com.example.email.root.RootEmailComponent
 
 @Composable
 fun BottomBar(component: MainScreenWithTabsComponent, modifier: Modifier = Modifier) {
@@ -46,7 +46,7 @@ fun BottomBar(component: MainScreenWithTabsComponent, modifier: Modifier = Modif
                 }
             )
             NavigationBarItem(
-                selected = activeComponent is RootContactsComponent,
+                selected = activeComponent is com.example.contacts.RootContactsComponent,
                 label = {
                     Text("Contacts")
                 },
@@ -61,7 +61,7 @@ fun BottomBar(component: MainScreenWithTabsComponent, modifier: Modifier = Modif
                 }
             )
             NavigationBarItem(
-                selected = activeComponent is RootEmailComponent,
+                selected = activeComponent is com.example.email.root.RootEmailComponent,
                 label = {
                     Text("Email")
                 },

@@ -1,16 +1,18 @@
 [versions]
 agp = "8.7.3"
-kotlin = "2.0.21"
+kotlin = "2.1.10"
 serialization = "1.7.3"
-composeCompiler = "2.0.21"
 coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.7"
-activityCompose = "1.9.3"
-composeBom = "2024.11.00"
+activityCompose = "1.10.0"
+composeBom = "2025.02.00"
 runtimeAndroid = "1.7.8"
+appcompat = "1.7.0"
+material = "1.12.0"
+uiToolingPreviewAndroid = "1.7.8"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -34,9 +36,12 @@ serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-jso
 
 decompose = { group = "com.arkivanov.decompose", name = "decompose", version = "3.2.2" }
 decompose-extensions-compose = { group = "com.arkivanov.decompose", name = "extensions-compose", version = "3.2.2" }
+essenty-lifecycle-coroutines = { module = "com.arkivanov.essenty:lifecycle-coroutines", version = "2.4.0" }
 
-compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "composeCompiler" }
 androidx-runtime-android = { group = "androidx.compose.runtime", name = "runtime-android", version.ref = "runtimeAndroid" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-ui-tooling-preview-android = { group = "androidx.compose.ui", name = "ui-tooling-preview-android", version.ref = "uiToolingPreviewAndroid" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
