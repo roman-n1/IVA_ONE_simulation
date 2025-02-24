@@ -6,10 +6,10 @@ import com.arkivanov.decompose.router.slot.SlotNavigation
 import com.arkivanov.decompose.router.slot.childSlot
 import com.arkivanov.essenty.instancekeeper.getOrCreate
 import com.example.ivaonesimulation.ComponentRetainedInstance
-import com.example.ivaonesimulation.common_models.Contact
 import com.example.ivaonesimulation.features.contacts.common.contact_list.ContactsListPartComponent
 import com.example.ivaonesimulation.features.contacts.common.toolbar.DefaultToolbarComponent
 import com.example.ivaonesimulation.features.contacts.common.toolbar.SelectToolbarComponent
+import com.example.models.Contact
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.FlowCollector

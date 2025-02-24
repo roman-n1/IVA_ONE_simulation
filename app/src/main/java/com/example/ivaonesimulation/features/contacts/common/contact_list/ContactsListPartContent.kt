@@ -29,7 +29,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.ivaonesimulation.common_models.Contact
+import com.example.models.Contact
 
 @Composable
 fun ContactListPartContent(
@@ -101,7 +101,12 @@ fun ContactItem(contact: Contact, isSelected: Boolean, onClick: () -> Unit, onLo
 @Composable
 fun ContactItemPreview() {
     ContactItem(
-        contact = Contact(id = 1, name = "John Doe", email = "j@j.com", phone = "+1234567890"),
+        contact = Contact(
+            id = 1,
+            name = "John Doe",
+            email = "j@j.com",
+            phone = "+1234567890"
+        ),
         isSelected = false,
         onClick = {},
         onLongPress = {},
@@ -112,7 +117,12 @@ fun ContactItemPreview() {
 @Composable
 fun ContactSelectedItemPreview() {
     ContactItem(
-        contact = Contact(id = 1, name = "John Doe", email = "j@j.com", phone = "+1234567890"),
+        contact = Contact(
+            id = 1,
+            name = "John Doe",
+            email = "j@j.com",
+            phone = "+1234567890"
+        ),
         isSelected = true,
         onClick = {},
         onLongPress = {},

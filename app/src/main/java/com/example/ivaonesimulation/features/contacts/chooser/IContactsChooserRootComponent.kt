@@ -1,6 +1,6 @@
 package com.example.ivaonesimulation.features.contacts.chooser
 
-import com.example.ivaonesimulation.common_models.Contact
+import com.example.models.Contact
 import kotlinx.coroutines.flow.FlowCollector
 import su.ivcs.one.navigation.BaseComponent
 

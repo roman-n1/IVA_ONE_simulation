@@ -3,7 +3,7 @@ package com.example.ivaonesimulation.features.contacts.details
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import com.arkivanov.decompose.ComponentContext
-import com.example.ivaonesimulation.common_models.Contact
+import com.example.models.Contact
 import su.ivcs.one.navigation.BaseComponent
 
 class ContactDetailsComponent(

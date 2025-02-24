@@ -21,4 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "IVA ONE simulation"
 include(":app")
-include(":navigation")
+include(":core:navigation")
+include(":core:models")

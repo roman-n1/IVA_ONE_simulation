@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.instancekeeper.getOrCreate
 import com.example.ivaonesimulation.ComponentRetainedInstance
-import com.example.ivaonesimulation.common_models.Contact
+import com.example.models.Contact
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow

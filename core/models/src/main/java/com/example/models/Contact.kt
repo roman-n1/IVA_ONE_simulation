@@ -1,4 +1,4 @@
-package com.example.ivaonesimulation.common_models
+package com.example.models
 
 import kotlinx.serialization.Serializable
 

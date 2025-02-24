@@ -8,9 +8,9 @@ import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.instancekeeper.getOrCreate
 import com.example.ivaonesimulation.ComponentRetainedInstance
-import com.example.ivaonesimulation.common_models.Contact
 import com.example.ivaonesimulation.features.contacts.details.ContactDetailsComponent
 import com.example.ivaonesimulation.features.email.root.RootEmailComponent
+import com.example.models.Contact
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.FlowCollector

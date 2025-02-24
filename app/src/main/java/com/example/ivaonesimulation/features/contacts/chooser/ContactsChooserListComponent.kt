@@ -19,10 +19,9 @@ import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.instancekeeper.getOrCreate
 import com.example.ivaonesimulation.ComponentRetainedInstance
-import com.example.ivaonesimulation.common_models.Contact
 import com.example.ivaonesimulation.features.contacts.common.contact_list.ContactsListPartComponent
-import com.example.ivaonesimulation.features.contacts.common.contact_list.ContactsListPartComponent.News
 import com.example.ivaonesimulation.features.contacts.common.toolbar.SearchToolbarComponent
+import com.example.models.Contact
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.FlowCollector
