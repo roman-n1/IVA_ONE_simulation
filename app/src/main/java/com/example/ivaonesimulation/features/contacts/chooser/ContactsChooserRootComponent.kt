@@ -4,9 +4,12 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
+import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.instancekeeper.getOrCreate
 import com.example.ivaonesimulation.ComponentRetainedInstance
+import com.example.ivaonesimulation.common_models.Contact
+import com.example.ivaonesimulation.features.contacts.details.ContactDetailsComponent
 import com.example.ivaonesimulation.features.email.root.RootEmailComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -27,7 +30,8 @@ class ContactsChooserRootComponent(
     private val coroutineScopeInstance =
         instanceKeeper.getOrCreate { ComponentRetainedInstance(ioDispatcher) }
 
-    private val contactsChooserListComponentNewsFlow = MutableSharedFlow<ContactsChooserListComponent.News>()
+    private val contactsChooserListComponentNewsFlow =
+        MutableSharedFlow<ContactsChooserListComponent.News>()
 
     private val navigation = StackNavigation<ChildConfiguration>()
 
@@ -58,7 +62,13 @@ class ContactsChooserRootComponent(
                     )
                 }
 
-                is ContactsChooserListComponent.News.ContactClicked -> TODO()
+                is ContactsChooserListComponent.News.ContactClicked -> {
+                    navigation.push(
+                        ChildConfiguration.ContactDetails(
+                            contact = news.contact
+                        )
+                    )
+                }
             }
         }
     }
@@ -75,7 +85,10 @@ class ContactsChooserRootComponent(
         }
 
         is ChildConfiguration.ContactDetails -> {
-            TODO()
+            ContactDetailsComponent(
+                componentContext = componentContext,
+                contact = childConfiguration.contact,
+            )
         }
     }
 
@@ -85,7 +98,9 @@ class ContactsChooserRootComponent(
         object ContactsList : ChildConfiguration
 
         @Serializable
-        object ContactDetails : ChildConfiguration
+        data class ContactDetails(
+            val contact: Contact,
+        ) : ChildConfiguration
     }
 
 

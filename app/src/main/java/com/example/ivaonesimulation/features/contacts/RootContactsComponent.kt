@@ -8,6 +8,8 @@ import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.instancekeeper.getOrCreate
 import com.example.ivaonesimulation.ComponentRetainedInstance
+import com.example.ivaonesimulation.common_models.Contact
+import com.example.ivaonesimulation.features.contacts.details.ContactDetailsComponent
 import com.example.ivaonesimulation.features.contacts.list.ContactListComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -48,7 +50,7 @@ class RootContactsComponent(
                 is ContactListComponent.News.ContactClicked -> {
                     navigation.push(
                         Child.ContactDetails(
-                            contactId = news.contact.id,
+                            contact = news.contact,
                         )
                     )
                 }
@@ -65,7 +67,7 @@ class RootContactsComponent(
 
         @Serializable
         data class ContactDetails(
-            val contactId: Int
+            val contact: Contact
         ) : Child()
     }
 
@@ -79,6 +81,9 @@ class RootContactsComponent(
             newsFlowCollector = contactsListComponentNewsFlow,
         )
 
-        is Child.ContactDetails -> TODO()
+        is Child.ContactDetails -> ContactDetailsComponent(
+            componentContext = componentContext,
+            contact = child.contact,
+        )
     }
 }
