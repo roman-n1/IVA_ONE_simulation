@@ -16,6 +16,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,6 +33,12 @@ fun NewEmailContent(
 ) {
     var recipient by remember { mutableStateOf("") }
     var message by remember { mutableStateOf("") }
+    val selectedContactsState by component.selectedContacts.collectAsState() // Подписка на selectedContacts
+
+    // Обновляем recipient при изменении списка выбранных контактов
+    LaunchedEffect(selectedContactsState) {
+        recipient = selectedContactsState.joinToString(separator = ", ") { it.email }
+    }
 
     Column(
         modifier = Modifier
@@ -45,7 +53,7 @@ fun NewEmailContent(
                 value = recipient,
                 onValueChange = { recipient = it },
                 label = { Text("Адресат") },
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f),
             )
             Spacer(modifier = Modifier.width(8.dp))
             IconButton(
@@ -79,7 +87,4 @@ fun NewEmailContent(
             Text("Отправить")
         }
     }
-
-
 }
-

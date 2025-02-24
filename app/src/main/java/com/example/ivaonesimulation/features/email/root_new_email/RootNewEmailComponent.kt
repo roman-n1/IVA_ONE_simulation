@@ -30,6 +30,7 @@ class RootNewEmailComponent(
         instanceKeeper.getOrCreate { ComponentRetainedInstance(ioDispatcher) }
 
     private val newEmailComponentNewsFlow = MutableSharedFlow<NewEmailComponent.News>()
+    private val newEmailComponentMessageFlow = MutableSharedFlow<NewEmailComponent.Message>()
     private val contactsChooserRootComponentNewsFlow =
         MutableSharedFlow<IContactsChooserRootComponent.News>()
 
@@ -55,11 +56,13 @@ class RootNewEmailComponent(
             when (news) {
                 is IContactsChooserRootComponent.News.ContactsSelected -> {
                     navigation.pop {
-                        /*Toast.makeText(
-                            context,
-                            "Selected ${news.contacts.size} contacts",
-                            Toast.LENGTH_SHORT
-                        ).show()*/
+                        coroutineScopeInstance {
+                            newEmailComponentMessageFlow.emit(
+                                NewEmailComponent.Message.ContactsSelected(
+                                    contacts = news.contacts
+                                )
+                            )
+                        }
                     }
                 }
 
@@ -89,7 +92,7 @@ class RootNewEmailComponent(
             ChildConfiguration.NewEmail -> NewEmailComponent(
                 componentContext = componentContext,
                 newsFlowCollector = newEmailComponentNewsFlow,
-
+                messageFlow = newEmailComponentMessageFlow
             )
 
             ChildConfiguration.SelectContacts -> ContactsChooserRootComponent(
