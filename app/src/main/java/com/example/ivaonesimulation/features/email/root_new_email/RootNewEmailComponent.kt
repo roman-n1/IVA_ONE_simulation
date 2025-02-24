@@ -5,10 +5,13 @@ import com.arkivanov.decompose.DelicateDecomposeApi
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
+import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.instancekeeper.getOrCreate
 import com.example.ivaonesimulation.ComponentRetainedInstance
+import com.example.ivaonesimulation.features.contacts.chooser.ContactsChooserRootComponent
+import com.example.ivaonesimulation.features.contacts.chooser.IContactsChooserRootComponent
 import com.example.ivaonesimulation.features.email.new_email.NewEmailComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -27,6 +30,8 @@ class RootNewEmailComponent(
         instanceKeeper.getOrCreate { ComponentRetainedInstance(ioDispatcher) }
 
     private val newEmailComponentNewsFlow = MutableSharedFlow<NewEmailComponent.News>()
+    private val contactsChooserRootComponentNewsFlow =
+        MutableSharedFlow<IContactsChooserRootComponent.News>()
 
     private val navigation = StackNavigation<ChildConfiguration>()
 
@@ -42,6 +47,27 @@ class RootNewEmailComponent(
 
     init {
         subscribeOnNewEmailComponentNews()
+        subscribeOnContactsChooserRootComponentNews()
+    }
+
+    private fun subscribeOnContactsChooserRootComponentNews() = coroutineScopeInstance {
+        contactsChooserRootComponentNewsFlow.collect { news ->
+            when (news) {
+                is IContactsChooserRootComponent.News.ContactsSelected -> {
+                    navigation.pop {
+                        /*Toast.makeText(
+                            context,
+                            "Selected ${news.contacts.size} contacts",
+                            Toast.LENGTH_SHORT
+                        ).show()*/
+                    }
+                }
+
+                IContactsChooserRootComponent.News.CancelClicked -> {
+                    navigation.pop()
+                }
+            }
+        }
     }
 
     @OptIn(DelicateDecomposeApi::class)
@@ -59,13 +85,17 @@ class RootNewEmailComponent(
         childConfiguration: ChildConfiguration,
         componentContext: ComponentContext
     ): BaseComponent =
-        when(childConfiguration) {
+        when (childConfiguration) {
             ChildConfiguration.NewEmail -> NewEmailComponent(
                 componentContext = componentContext,
-                newsFlowCollector = newEmailComponentNewsFlow
+                newsFlowCollector = newEmailComponentNewsFlow,
+
             )
 
-            ChildConfiguration.SelectContacts -> TODO()
+            ChildConfiguration.SelectContacts -> ContactsChooserRootComponent(
+                componentContext = componentContext,
+                newsFlowCollector = contactsChooserRootComponentNewsFlow,
+            )
         }
 
     @OptIn(DelicateDecomposeApi::class)

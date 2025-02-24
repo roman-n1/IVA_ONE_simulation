@@ -1,17 +1,13 @@
 package com.example.ivaonesimulation.features.contacts.chooser
 
 import com.arkivanov.decompose.ComponentContext
-import com.arkivanov.decompose.DelicateDecomposeApi
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
-import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.instancekeeper.getOrCreate
 import com.example.ivaonesimulation.ComponentRetainedInstance
-import com.example.ivaonesimulation.features.email.list.EmailListComponent
 import com.example.ivaonesimulation.features.email.root.RootEmailComponent
-import com.example.ivaonesimulation.features.email.root_new_email.RootNewEmailComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.FlowCollector
@@ -31,7 +27,7 @@ class ContactsChooserRootComponent(
     private val coroutineScopeInstance =
         instanceKeeper.getOrCreate { ComponentRetainedInstance(ioDispatcher) }
 
-    private val emailListComponentNewsFlow = MutableSharedFlow<EmailListComponent.News>()
+    private val contactsChooserListComponentNewsFlow = MutableSharedFlow<ContactsChooserListComponent.News>()
 
     private val navigation = StackNavigation<ChildConfiguration>()
 
@@ -48,16 +44,21 @@ class ContactsChooserRootComponent(
     override fun getChildStack(): Value<ChildStack<*, BaseComponent>> = stack
 
     init {
-        subscribeOnEmailListComponentNews()
+        subscribeOnContactsChooserListComponentNews()
     }
 
-    @OptIn(DelicateDecomposeApi::class)
-    private fun subscribeOnEmailListComponentNews() = coroutineScopeInstance {
-        emailListComponentNewsFlow.collect { news ->
+    private fun subscribeOnContactsChooserListComponentNews() = coroutineScopeInstance {
+        contactsChooserListComponentNewsFlow.collect { news ->
             when (news) {
-                is EmailListComponent.News.NewEmailButtonClicked -> {
-                    navigation.push(ChildConfiguration.SearchContacts)
+                is ContactsChooserListComponent.News.ContactsSelected -> {
+                    newsFlowCollector.emit(
+                        IContactsChooserRootComponent.News.ContactsSelected(
+                            contacts = news.contacts
+                        )
+                    )
                 }
+
+                is ContactsChooserListComponent.News.ContactClicked -> TODO()
             }
         }
     }
@@ -67,16 +68,14 @@ class ContactsChooserRootComponent(
         componentContext: ComponentContext
     ): BaseComponent = when (childConfiguration) {
         is ChildConfiguration.ContactsList -> {
-            EmailListComponent(
+            ContactsChooserListComponent(
                 componentContext = componentContext,
-                newsFlowCollector = emailListComponentNewsFlow,
+                newsFlowCollector = contactsChooserListComponentNewsFlow
             )
         }
 
-        is ChildConfiguration.SearchContacts -> {
-            RootNewEmailComponent(
-                componentContext = componentContext
-            )
+        is ChildConfiguration.ContactDetails -> {
+            TODO()
         }
     }
 
@@ -86,7 +85,7 @@ class ContactsChooserRootComponent(
         object ContactsList : ChildConfiguration
 
         @Serializable
-        object SearchContacts : ChildConfiguration
+        object ContactDetails : ChildConfiguration
     }
 
 
