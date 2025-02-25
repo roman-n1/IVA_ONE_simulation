@@ -20,7 +20,7 @@ import su.ivcs.one.navigation.CompositeComponent
 
 class ContactsChooserRootComponent(
     componentContext: ComponentContext,
-    override val newsFlowCollector: FlowCollector<IContactsChooserRootComponent.News>,
+    private val newsFlowCollector: FlowCollector<IContactsChooserRootComponent.News>,
 ) : IContactsChooserRootComponent,
     CompositeComponent,
     ComponentContext by componentContext {
