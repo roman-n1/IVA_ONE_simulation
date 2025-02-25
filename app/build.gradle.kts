@@ -53,12 +53,12 @@ dependencies {
 
 
     implementation(project(":core:navigation"))
-    implementation(project(":core:models"))
 
     implementation(project(":feature:contacts"))
+    implementation(project(":feature:contacts-api"))
     implementation(project(":feature:email"))
 
-    
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

@@ -5,7 +5,7 @@ import androidx.compose.runtime.Immutable
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.coroutines.coroutineScope
 import com.example.contacts.utils.getOrCreateFlow
-import com.example.models.Contact
+import com.example.contacts_api.models.Contact
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector

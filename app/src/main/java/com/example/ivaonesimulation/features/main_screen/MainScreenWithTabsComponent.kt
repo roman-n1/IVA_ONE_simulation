@@ -13,6 +13,7 @@ import com.arkivanov.decompose.router.stack.bringToFront
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.value.Value
 import com.example.contacts.RootContactsComponent
+import com.example.contacts.chooser.ContactsChooserFactoryImpl
 import com.example.email.root.RootEmailComponent
 import com.example.ivaonesimulation.features.chat.RootChatComponent
 import kotlinx.serialization.Serializable
@@ -80,8 +81,23 @@ class MainScreenWithTabsComponent(
         componentContext: ComponentContext
     ): BaseComponent =
         when (child) {
-            Child.ChatFeed -> RootChatComponent(componentContext)
-            Child.Contacts -> RootContactsComponent(componentContext)
-            Child.Email -> RootEmailComponent(componentContext)
+            Child.ChatFeed -> {
+                RootChatComponent(
+                    componentContext = componentContext
+                )
+            }
+
+            Child.Contacts -> {
+                RootContactsComponent(
+                    componentContext = componentContext
+                )
+            }
+
+            Child.Email -> {
+                RootEmailComponent(
+                    componentContext = componentContext,
+                    contactsChooserFactory = ContactsChooserFactoryImpl(),
+                )
+            }
         }
 }

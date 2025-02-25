@@ -1,4 +1,4 @@
-package com.example.models
+package com.example.contacts_api.models
 
 import kotlinx.serialization.Serializable
 

@@ -1,10 +1,10 @@
-package com.example.contacts.chooser
+package com.example.contacts_api.chooser
 
-import com.example.models.Contact
+import com.example.contacts_api.models.Contact
 import kotlinx.coroutines.flow.FlowCollector
 import su.ivcs.one.navigation.BaseComponent
 
-interface IContactsChooserRootComponent  : BaseComponent {
+interface IContactsChooserRootComponent : BaseComponent {
 
     val newsFlowCollector: FlowCollector<News>
 

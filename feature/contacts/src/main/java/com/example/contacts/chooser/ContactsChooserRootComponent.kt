@@ -8,7 +8,8 @@ import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.lifecycle.coroutines.coroutineScope
 import com.example.contacts.details.ContactDetailsComponent
-import com.example.models.Contact
+import com.example.contacts_api.chooser.IContactsChooserRootComponent
+import com.example.contacts_api.models.Contact
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.MutableSharedFlow

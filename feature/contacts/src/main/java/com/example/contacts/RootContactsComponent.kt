@@ -9,7 +9,7 @@ import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.lifecycle.coroutines.coroutineScope
 import com.example.contacts.details.ContactDetailsComponent
 import com.example.contacts.list.ContactListComponent
-import com.example.models.Contact
+import com.example.contacts_api.models.Contact
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch

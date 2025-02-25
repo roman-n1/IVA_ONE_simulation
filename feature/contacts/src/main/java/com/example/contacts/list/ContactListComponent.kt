@@ -8,7 +8,7 @@ import com.arkivanov.essenty.lifecycle.coroutines.coroutineScope
 import com.example.contacts.common.contact_list.ContactsListPartComponent
 import com.example.contacts.common.toolbar.DefaultToolbarComponent
 import com.example.contacts.common.toolbar.SelectToolbarComponent
-import com.example.models.Contact
+import com.example.contacts_api.models.Contact
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.MutableSharedFlow

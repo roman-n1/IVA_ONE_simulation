@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.models"
+    namespace = "com.example.contacts_api"
     compileSdk = 34
 
     defaultConfig {
@@ -34,11 +34,15 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:navigation"))
 
-    implementation(libs.androidx.core.ktx)
+    implementation(libs.decompose)
 
     implementation(libs.serialization.json)
 
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

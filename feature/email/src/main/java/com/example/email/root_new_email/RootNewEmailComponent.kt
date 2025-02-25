@@ -9,8 +9,8 @@ import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.lifecycle.coroutines.coroutineScope
-import com.example.contacts.chooser.ContactsChooserRootComponent
-import com.example.contacts.chooser.IContactsChooserRootComponent
+import com.example.contacts_api.chooser.ContactsChooserFactory
+import com.example.contacts_api.chooser.IContactsChooserRootComponent
 import com.example.email.new_email.NewEmailComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -21,6 +21,7 @@ import su.ivcs.one.navigation.CompositeComponent
 
 class RootNewEmailComponent(
     componentContext: ComponentContext,
+    private val contactsChooserFactory: ContactsChooserFactory,
 ) : CompositeComponent,
     ComponentContext by componentContext {
 
@@ -92,10 +93,12 @@ class RootNewEmailComponent(
                 messageFlow = newEmailComponentMessageFlow
             )
 
-            ChildConfiguration.SelectContacts -> ContactsChooserRootComponent(
-                componentContext = componentContext,
-                newsFlowCollector = contactsChooserRootComponentNewsFlow,
-            )
+            ChildConfiguration.SelectContacts -> {
+                contactsChooserFactory.create(
+                    componentContext = componentContext,
+                    newsFlowCollector = contactsChooserRootComponentNewsFlow,
+                )
+            }
         }
 
     @OptIn(DelicateDecomposeApi::class)

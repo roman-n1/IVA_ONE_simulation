@@ -3,7 +3,7 @@ package com.example.contacts.details
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import com.arkivanov.decompose.ComponentContext
-import com.example.models.Contact
+import com.example.contacts_api.models.Contact
 import su.ivcs.one.navigation.BaseComponent
 
 class ContactDetailsComponent(

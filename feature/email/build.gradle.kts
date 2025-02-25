@@ -37,9 +37,8 @@ android {
 dependencies {
 
     implementation(project(":core:navigation"))
-    implementation(project(":core:models"))
 
-    implementation(project(":feature:contacts"))
+    implementation(project(":feature:contacts-api"))
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.runtime.android)

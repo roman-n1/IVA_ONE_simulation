@@ -8,6 +8,7 @@ import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.lifecycle.coroutines.coroutineScope
+import com.example.contacts_api.chooser.ContactsChooserFactory
 import com.example.email.list.EmailListComponent
 import com.example.email.root_new_email.RootNewEmailComponent
 import kotlinx.coroutines.CoroutineScope
@@ -19,6 +20,7 @@ import su.ivcs.one.navigation.CompositeComponent
 
 class RootEmailComponent(
     componentContext: ComponentContext,
+    private val contactsChooserFactory: ContactsChooserFactory,
 ) : CompositeComponent,
     ComponentContext by componentContext {
 
@@ -66,7 +68,8 @@ class RootEmailComponent(
 
         is ChildConfiguration.NewEmail -> {
             RootNewEmailComponent(
-                componentContext = componentContext
+                componentContext = componentContext,
+                contactsChooserFactory = contactsChooserFactory,
             )
         }
     }
